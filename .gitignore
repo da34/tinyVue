@@ -1,0 +1,11 @@
+.DS_Store
+.idea
+coverage
+/dist
+/typings
+npm-debug.log
+*.js.map
+/coverage
+/node_modules
+/tmp
+*dockerfile
