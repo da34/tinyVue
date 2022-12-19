@@ -59,17 +59,24 @@ export function track(target, key) {
         dep = new Set()
         depsMap.set(key, dep)
     }
+    trackEffects(dep)
+    // console.log(targetMap)
+}
+export function isTacking() {
+    return shouldTrack && activeEffect != null
+}
+
+export function trackEffects(dep) {
     if (dep.has(activeEffect)) return;
     dep.add(activeEffect)
     activeEffect.deps.push(dep)
-    // console.log(targetMap)
-}
-function isTacking() {
-    return shouldTrack && activeEffect != null
 }
 export function trigger(target, key) {
     const depsMap = targetMap.get(target)
     const dep = depsMap.get(key)
+    triggerEffects(dep)
+}
+export function triggerEffects(dep) {
     for(const effect of dep) {
         if (effect.scheduler) {
             effect.scheduler()
@@ -78,7 +85,6 @@ export function trigger(target, key) {
         }
     }
 }
-
 export function stop(runner) {
     runner.effect.stop()
 }
