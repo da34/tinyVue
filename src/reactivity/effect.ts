@@ -1,14 +1,15 @@
 import { extend } from "../shared";
 let activeEffect
 let shouldTrack
-class ReactiveEffect {
+export class ReactiveEffect {
     private readonly _fn: any
     public scheduler?: Function
     active = true
     deps = []
     onStop?: () => void
-    constructor(fn, scheduler) {
+    constructor(fn, scheduler?) {
         this._fn = fn
+        this.scheduler = scheduler
     }
     run() {
         if (!this.active) {
