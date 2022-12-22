@@ -8,13 +8,21 @@ export const App = {
         return h('div', {
             id: 'test',
             class: ['red', 'green'],
-            onClick: () => {
-                console.log('click')
-            }
+            // onClick: () => {
+            //     console.log('click')
+            // }
         },
             [
                 h('p', {}, 'hi ' + this.msg),
-                h(Foo, { count: 1 })
+                h(Foo, {
+                    count: 1,
+                    onAdd(a, b) {
+                        console.log('onAdd', a, b)
+                    },
+                    onAddFoo(a, b) {
+                        console.log('onAddFoo')
+                    }
+                })
             ]
             // [
             //     h('div', { class: 'red' }, 'vue'),

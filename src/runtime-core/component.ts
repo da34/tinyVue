@@ -1,12 +1,16 @@
 import {publicInstanceProxyHandle} from "./componentPublicInstance";
 import {initProps} from "./componentProps";
+import {emit} from "./componentEmit";
 
 export function createComponentInstance(vnode) {
   const component = {
     vnode,
     setupState: {},
-    props: {}
+    props: {},
+    emit: () => {}
   }
+  
+  component.emit = emit.bind(null, component) as any
   return component
 }
 
@@ -23,9 +27,11 @@ function setupStateFulComponent(instance) {
   instance.proxy = new Proxy({_: instance}, publicInstanceProxyHandle)
   
   const { setup } = Component
+ 
   if(setup) {
     // function -> render   || object
-    const setupResult = setup(instance.props)
+    const { props } = instance
+    const setupResult = setup(props, { emit: instance.emit })
     handleSetupResult(instance, setupResult)
   }
 }
