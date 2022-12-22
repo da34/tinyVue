@@ -17,7 +17,7 @@ function patch(vnode, container) {
 
 function processElement(vnode, container) {
   const el = document.createElement(vnode.type)
-  
+  vnode.el = el
   // props
   const { props } = vnode
   for (const propsKey in props) {
@@ -52,4 +52,5 @@ function setupRenderEffect(instance: any, container) {
   const subTree = instance.render.call(instance.proxy)
   // console.log(subTree, 'instance')
   patch(subTree, container)
+  instance.vnode.el = subTree.el
 }
