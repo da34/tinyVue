@@ -7,7 +7,7 @@ export function render(vnode, container) {
 
 function patch(vnode, container) {
     // 处理组件
-  console.log(vnode)
+  // console.log(vnode)
   if (typeof vnode.type === 'string') {
     processElement(vnode, container)
   } else if(isObject(vnode.type)) {
@@ -49,7 +49,7 @@ function mountComponent(vnode, container) {
 }
 
 function setupRenderEffect(instance: any, container) {
-  const subTree = instance.render()
+  const subTree = instance.render.call(instance.proxy)
   // console.log(subTree, 'instance')
   patch(subTree, container)
 }

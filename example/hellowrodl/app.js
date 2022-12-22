@@ -4,10 +4,13 @@ export const App = {
         return h('div', {
             id: 'test',
             class: ['red', 'green']
-        },[
-            h('div', { class: 'red' }, 'vue'),
-            h('div', { class: 'blue' }, 'mini-vue')
-        ])
+        },
+            'hi ' + this.msg
+            // [
+            //     h('div', { class: 'red' }, 'vue'),
+            //     h('div', { class: 'blue' }, 'mini-vue')
+            // ]
+        )
     },
     setup() {
         return {
