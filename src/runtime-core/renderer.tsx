@@ -22,9 +22,15 @@ function processElement(vnode, container) {
   vnode.el = el
   // props
   const { props } = vnode
+  const isOn = (key: string) => /^on[A-Z]/.test(key)
   for (const propsKey in props) {
     const val = props[propsKey]
-    el.setAttribute(propsKey, val)
+    if (isOn(propsKey)) {
+      const event = propsKey.slice(2).toLowerCase()
+      el.addEventListener(event, val)
+    } else {
+      el.setAttribute(propsKey, val)
+    }
   }
   
   // children
