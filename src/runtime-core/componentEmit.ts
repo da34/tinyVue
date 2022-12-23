@@ -1,8 +1,8 @@
 import {camelize, toHandleKey} from "../shared";
 
 export function emit(instance, event, ...args) {
-  const { props } = instance
-  
+  const {props} = instance
+
 
   const handleName = toHandleKey(camelize(event))
   console.log(handleName)

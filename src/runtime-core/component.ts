@@ -9,9 +9,10 @@ export function createComponentInstance(vnode) {
     setupState: {},
     props: {},
     slots: {},
-    emit: () => {}
+    emit: () => {
+    }
   }
-  
+
   component.emit = emit.bind(null, component) as any
   return component
 }
@@ -25,15 +26,15 @@ export function setupComponent(instance) {
 
 function setupStateFulComponent(instance) {
   const Component = instance.vnode.type
-  
+
   instance.proxy = new Proxy({_: instance}, publicInstanceProxyHandle)
-  
-  const { setup } = Component
- 
-  if(setup) {
+
+  const {setup} = Component
+
+  if (setup) {
     // function -> render   || object
-    const { props } = instance
-    const setupResult = setup(props, { emit: instance.emit })
+    const {props} = instance
+    const setupResult = setup(props, {emit: instance.emit})
     handleSetupResult(instance, setupResult)
   }
 }
