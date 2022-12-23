@@ -1,12 +1,14 @@
 import {publicInstanceProxyHandle} from "./componentPublicInstance";
 import {initProps} from "./componentProps";
 import {emit} from "./componentEmit";
+import {initSlots} from "./componentsSlots";
 
 export function createComponentInstance(vnode) {
   const component = {
     vnode,
     setupState: {},
     props: {},
+    slots: {},
     emit: () => {}
   }
   
@@ -17,7 +19,7 @@ export function createComponentInstance(vnode) {
 export function setupComponent(instance) {
   // TODO
   initProps(instance, instance.vnode.props)
-  // initSlots()
+  initSlots(instance, instance.vnode.children)
   setupStateFulComponent(instance)
 }
 

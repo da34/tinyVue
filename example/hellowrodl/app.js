@@ -1,33 +1,13 @@
 import { h } from '../../lib/guide-mini-vue-esm.js'
 import { Foo } from "./foo.js";
 
-window.self = null
 export const App = {
     render() {
-        window.self = this
-        return h('div', {
-            id: 'test',
-            class: ['red', 'green'],
-            // onClick: () => {
-            //     console.log('click')
-            // }
-        },
-            [
-                h('p', {}, 'hi ' + this.msg),
-                h(Foo, {
-                    count: 1,
-                    onAdd(a, b) {
-                        console.log('onAdd', a, b)
-                    },
-                    onAddFoo(a, b) {
-                        console.log('onAddFoo')
-                    }
-                })
-            ]
-            // [
-            //     h('div', { class: 'red' }, 'vue'),
-            //     h('div', { class: 'blue' }, 'mini-vue')
-            // ]
+        const app = h('div', {}, 'app')
+        const pSlots2 = h('p', {}, 'footer')
+        const foo = h(Foo, {}, {header: ({age}) => h('p', {}, 'header' + age), footer: () => pSlots2})
+        return h('div', {id: 'test',},
+            [app, foo]
         )
     },
     setup() {
