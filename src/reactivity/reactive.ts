@@ -30,7 +30,7 @@ export function shallowReadonly(raw) {
 }
 function createActiveObj(raw, baseHandles) {
     if (!isObject(raw)) {
-        console.error('target 不是一个object')
+        // console.error('target 不是一个object')
         return
     }
     return new Proxy(raw, baseHandles)

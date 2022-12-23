@@ -3,14 +3,16 @@ import {initProps} from "./componentProps";
 import {emit} from "./componentEmit";
 import {initSlots} from "./componentsSlots";
 
-export function createComponentInstance(vnode) {
+export function createComponentInstance(vnode, parentComp) {
+  console.log('createComponentInstance', parentComp)
   const component = {
     vnode,
     setupState: {},
     props: {},
     slots: {},
-    emit: () => {
-    }
+    emit: () => {},
+    provide: parentComp ? parentComp.provide : {},
+    parent: parentComp
   }
 
   component.emit = emit.bind(null, component) as any
