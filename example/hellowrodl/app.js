@@ -1,22 +1,14 @@
-import {h, createTextVNode} from '../../lib/guide-mini-vue-esm.js'
+import {h, getCurrentInstance, renderSlots} from '../../lib/guide-mini-vue-esm.js'
 import {Foo} from "./foo.js";
 
 export const App = {
 	render() {
 		const app = h('div', {}, 'app')
-		const pSlots2 = h('p', {}, 'footer')
-		const foo = h(Foo, {}, {
-			header: ({age}) => [
-				h('p', {}, 'header' + age),
-				createTextVNode('你好呀')
-			],
-			footer: () => pSlots2
-		})
-		return h('div', {id: 'test',},
-			[app, foo]
-		)
+		return h('div', {id: 'test',}, [app, h(Foo)])
 	},
 	setup() {
+		const instance = getCurrentInstance()
+		console.log('App: ', instance)
 		return {
 			msg: 'mini-vue'
 		}

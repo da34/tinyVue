@@ -32,10 +32,12 @@ function setupStateFulComponent(instance) {
   const {setup} = Component
 
   if (setup) {
+    setCurrentInstance(instance)
     // function -> render   || object
     const {props} = instance
     const setupResult = setup(props, {emit: instance.emit})
     handleSetupResult(instance, setupResult)
+    setCurrentInstance(null)
   }
 }
 
@@ -51,4 +53,13 @@ function finishComponentSetup(instance) {
   if (Component.render) {
     instance.render = Component.render
   }
+}
+
+let currentInstance = null
+export function getCurrentInstance() {
+  return currentInstance
+}
+
+function setCurrentInstance(instance) {
+  currentInstance = instance
 }
